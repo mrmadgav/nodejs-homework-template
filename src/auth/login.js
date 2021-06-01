@@ -9,7 +9,7 @@ function loginUser(req, res) {
   const { email, password } = req.body
 
   if (!email || !password) {
-    res.status(401).json({ message: 'Email and password required field!' })
+    res.status(401).json({ message: 'Email and password required field' })
     return
   }
 
@@ -17,6 +17,7 @@ function loginUser(req, res) {
     .select('password subscription')
     .then(user => {
       if (!user) { return res.status(401).json({ message: 'User not found' }) }
+      if (!user.verificationToken) { return res.status(401).json({ message: 'Email or password wrong' }) }
 
       const { id } = user
       bcrypt.compare(password, user.password, (err, valid) => {
@@ -25,7 +26,7 @@ function loginUser(req, res) {
         if (!valid) {
           return res
             .status(400)
-            .json({ message: 'Login or password is wrong!' })
+            .json({ message: 'Login or password is wrong' })
         }
 
         const token = jwt.sign({ id }, secretKey, { expiresIn: '60m' })
