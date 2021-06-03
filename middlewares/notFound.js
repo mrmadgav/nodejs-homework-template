@@ -1,5 +1,6 @@
-const notFound = (req, res) => {
-  res.status(404).send(`This path ${req.baseUrl} can't found`)
+const notFound = (res, err) => {
+  res.status(404).send('This path can\'t found')
+  console.error(err)
 }
 
 module.exports = notFound

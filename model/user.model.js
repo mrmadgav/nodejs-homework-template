@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
+const gravatar = require('gravatar')
 
 const UsersSchema = new Schema(
   {
@@ -25,6 +26,21 @@ const UsersSchema = new Schema(
     owner: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',
+    },
+    avatarURL: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: '250' }, true)
+      },
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verifyToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+      default: false,
     },
   },
   {

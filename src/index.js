@@ -7,6 +7,9 @@ const signup = require('./auth/signup')
 const loginUser = require('./auth/login')
 const validTokenUser = require('./auth/validationToken')
 const logout = require('./auth/logout')
+const updateAvatars = require('./auth/updateAvatars')
+const verificateToken = require('./auth/verificateToken')
+const verify = require('./auth/verify')
 
 module.exports = {
   getContact,
@@ -18,4 +21,7 @@ module.exports = {
   signup,
   validTokenUser,
   logout,
+  updateAvatars,
+  verificateToken,
+  verify,
 }
